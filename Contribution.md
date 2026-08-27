@@ -1,6 +1,6 @@
-# typed-css-modules Contribution Guidelines
+# typed-css-modules-next Contribution Guidelines
 
-Welcome to the typed-css-modules project! We appreciate your interest in contributing to the project. This document outlines the guidelines for contributing to the project to help maintain a healthy and collaborative development environment.
+Welcome to the typed-css-modules-next project! We appreciate your interest in contributing to the project. This document outlines the guidelines for contributing to the project to help maintain a healthy and collaborative development environment.
 
 ## Table of Contents
 
@@ -32,11 +32,11 @@ We welcome contributions in the following ways:
 
 ### Reporting Bugs
 
-If you find any bugs or issues with the project, please [submit a new issue](https://github.com/Quramy/typed-css-modules/issues/new) on GitHub. Make sure to provide detailed information about the bug and steps to reproduce it.
+If you find any bugs or issues with the project, please [submit a new issue](https://github.com/baevm/typed-css-modules-next/issues/new) on GitHub. Make sure to provide detailed information about the bug and steps to reproduce it.
 
 ### Submitting Enhancements
 
-If you have an idea for an enhancement or a new feature, create an enhancement proposal in the [Issues](https://github.com/Quramy/typed-css-modules/issues) section. Discuss your proposal with the community before you start working on it.
+If you have an idea for an enhancement or a new feature, create an enhancement proposal in the [Issues](https://github.com/baevm/typed-css-modules-next/issues) section. Discuss your proposal with the community before you start working on it.
 
 ### Code Contributions
 

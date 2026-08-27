@@ -1,6 +1,8 @@
-# typed-css-modules [![github actions](https://github.com/Quramy/typed-css-modules/workflows/build/badge.svg)](https://github.com/Quramy/typed-css-modules/actions) [![npm version](https://badge.fury.io/js/typed-css-modules.svg)](http://badge.fury.io/js/typed-css-modules)
+# typed-css-modules-next [![github actions](https://github.com/baevm/typed-css-modules-next/actions/workflows/build.yml/badge.svg)](https://github.com/baevm/typed-css-modules-next/actions/workflows/build.yml) [![npm version](https://img.shields.io/npm/v/typed-css-modules-next.svg)](https://www.npmjs.com/package/typed-css-modules-next)
 
 Creates TypeScript definition files from [CSS Modules](https://github.com/css-modules/css-modules) .css files.
+
+This project is a maintained fork of [Quramy/typed-css-modules](https://github.com/Quramy/typed-css-modules). It keeps the original API and `tcm` command compatible while continuing development under the `typed-css-modules-next` package name.
 
 If you have the following css,
 
@@ -14,7 +16,7 @@ If you have the following css,
 }
 ```
 
-typed-css-modules creates the following .d.ts files from the above css:
+typed-css-modules-next creates the following .d.ts files from the above css:
 
 ```ts
 /* styles.css.d.ts */
@@ -37,14 +39,14 @@ console.log(`<div style="color: ${styles.primary}"></div>`);
 ## CLI
 
 ```sh
-npm install -g typed-css-modules
+npm install -g typed-css-modules-next
 ```
 
-And exec `tcm <input directory>` command.
+Then run `tcm-next <input directory>` (or the backward-compatible `tcm` alias).
 For example, if you have .css files under `src` directory, exec the following:
 
 ```sh
-tcm src
+tcm-next src
 ```
 
 Then, this creates `*.css.d.ts` files under the directory which has the original .css file.
@@ -63,7 +65,7 @@ Use `-o` or `--outDir` option.
 For example:
 
 ```sh
-tcm -o dist src
+tcm-next -o dist src
 ```
 
 ```text
@@ -81,7 +83,7 @@ If you can customize the glob pattern, you can use `--pattern` or `-p` option.
 Note the quotes around the glob to `-p` (they are required, so that your shell does not perform the expansion).
 
 ```sh
-tcm -p 'src/**/*.css' .
+tcm-next -p 'src/**/*.css' .
 ```
 
 #### watch
@@ -158,11 +160,11 @@ In essence, the `*.css.d.ts` extension now becomes `*.d.css.ts` so that you can 
 ## API
 
 ```sh
-npm install typed-css-modules
+npm install --save-dev typed-css-modules-next
 ```
 
 ```js
-import DtsCreator from 'typed-css-modules';
+import DtsCreator from 'typed-css-modules-next';
 let creator = new DtsCreator();
 creator.create('src/style.css').then(content => {
   console.log(content.tokens); // ['myClass']
@@ -270,3 +272,5 @@ Or please see [https://github.com/Quramy/typescript-css-modules-demo](https://gi
 ## License
 
 This software is released under the MIT License, see LICENSE.txt.
+
+Maintainers can follow [PUBLISHING.md](PUBLISHING.md) for the first npm release and subsequent automated releases.

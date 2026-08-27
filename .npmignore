@@ -3,7 +3,8 @@
 
 # include these:
 !/lib/**/*
-!LICENSE.md
+!LICENSE.txt
+!PUBLISHING.md
 !README.md
 
 /lib/**/*.test.*

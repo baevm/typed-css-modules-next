@@ -1,35 +1,53 @@
 {
-  "name": "typed-css-modules",
-  "version": "0.9.1",
-  "description": "Creates .d.ts files from CSS Modules .css files",
+  "name": "typed-css-modules-next",
+  "version": "1.0.0",
+  "description": "Creates TypeScript declaration files for CSS Modules",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "LICENSE.txt",
+    "PUBLISHING.md",
+    "README.md"
+  ],
   "scripts": {
     "clean": "rimraf lib/",
-    "build": "npm run clean && tsc && chmod +x lib/cli.js",
-    "prettier": "prettier \"*.{md,js,json.yml,yaml}\" \"{src,test}/**/*\"",
+    "build": "npm run clean && tsc -p tsconfig.build.json && chmod +x lib/cli.js",
+    "prettier": "prettier \"*.{md,js,json,yml,yaml}\" \"{src,test}/**/*\"",
     "format": "npm run prettier -- --write",
     "lint": "npm run prettier -- --check",
     "compile": "tsc --noEmit",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:ci": "jest --coverage",
-    "prepublish": "npm run build",
-    "prepare": "husky install"
+    "check": "npm run lint && npm run compile && npm test -- --runInBand",
+    "prepack": "npm run build",
+    "prepare": "husky"
   },
   "bin": {
-    "tcm": "lib/cli.js"
+    "tcm": "lib/cli.js",
+    "tcm-next": "lib/cli.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Quramy/typed-css-modules.git"
+    "url": "git+https://github.com/baevm/typed-css-modules-next.git"
+  },
+  "homepage": "https://github.com/baevm/typed-css-modules-next#readme",
+  "bugs": {
+    "url": "https://github.com/baevm/typed-css-modules-next/issues"
   },
   "keywords": [
     "css-modules",
     "typescript"
   ],
-  "author": "quramy",
+  "author": "Mikhail Baev",
+  "contributors": [
+    "Yosuke Kurami and typed-css-modules contributors"
+  ],
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
     "node": ">=18.0.0"
   },
