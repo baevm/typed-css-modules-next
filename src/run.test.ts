@@ -1,6 +1,6 @@
+import fs from 'node:fs/promises';
 import path from 'node:path';
 import isThere from 'is-there';
-import { rimraf } from 'rimraf';
 import { run } from './run';
 
 describe(run, () => {
@@ -11,7 +11,7 @@ describe(run, () => {
   });
 
   beforeEach(async () => {
-    await rimraf('example/style01.css.d.ts');
+    await fs.rm('example/style01.css.d.ts', { force: true });
   });
 
   afterAll(() => {

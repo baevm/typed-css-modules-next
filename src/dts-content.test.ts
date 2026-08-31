@@ -3,7 +3,6 @@ import path from 'node:path';
 import assert from 'node:assert';
 
 import isThere from 'is-there';
-import { rimraf } from 'rimraf';
 
 import { DtsCreator } from './dts-creator';
 
@@ -201,7 +200,7 @@ export = styles;
 
   describe('#writeFile', () => {
     beforeEach(async () => {
-      await rimraf(path.normalize('fixtures/testStyle.css.d.ts'));
+      await fs.rm(path.normalize('fixtures/testStyle.css.d.ts'), { force: true });
     });
 
     it('accepts a postprocessor sync function', async () => {
@@ -235,7 +234,7 @@ export = styles;
     });
 
     afterAll(async () => {
-      await rimraf(path.normalize('fixtures/none.css.d.ts'));
+      await fs.rm(path.normalize('fixtures/none.css.d.ts'), { force: true });
     });
   });
 });
