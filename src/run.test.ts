@@ -1,17 +1,18 @@
+import fs from 'node:fs/promises';
 import path from 'node:path';
 import isThere from 'is-there';
-import { rimraf } from 'rimraf';
+import { afterAll, beforeAll, beforeEach, describe, expect, it, type MockInstance, vi } from 'vitest';
 import { run } from './run';
 
 describe(run, () => {
-  let mockConsoleLog: jest.SpyInstance;
+  let mockConsoleLog: MockInstance;
 
   beforeAll(() => {
-    mockConsoleLog = jest.spyOn(console, 'log').mockImplementation();
+    mockConsoleLog = vi.spyOn(console, 'log').mockImplementation(() => undefined);
   });
 
   beforeEach(async () => {
-    await rimraf('example/style01.css.d.ts');
+    await fs.rm('example/style01.css.d.ts', { force: true });
   });
 
   afterAll(() => {

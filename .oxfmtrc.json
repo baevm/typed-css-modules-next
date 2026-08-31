@@ -1,0 +1,19 @@
+{
+  "trailingComma": "all",
+  "tabWidth": 2,
+  "semi": true,
+  "singleQuote": true,
+  "bracketSpacing": true,
+  "printWidth": 120,
+  "arrowParens": "avoid",
+  "ignorePatterns": [
+    ".git/",
+    "node_modules/",
+    "lib/",
+    "__snapshots__/",
+    "coverage/",
+    "*.css.d.ts",
+    "test/**/*.css",
+    "fixtures/**/*.css"
+  ]
+}

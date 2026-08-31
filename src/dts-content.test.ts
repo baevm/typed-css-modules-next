@@ -3,7 +3,7 @@ import path from 'node:path';
 import assert from 'node:assert';
 
 import isThere from 'is-there';
-import { rimraf } from 'rimraf';
+import { afterAll, beforeAll, beforeEach, describe, expect, it, type MockInstance, vi } from 'vitest';
 
 import { DtsCreator } from './dts-creator';
 
@@ -158,20 +158,20 @@ export = styles;
   });
 
   describe('#checkFile', () => {
-    let mockExit: jest.SpyInstance;
-    let mockConsoleLog: jest.SpyInstance;
-    let mockConsoleError: jest.SpyInstance;
+    let mockExit: MockInstance;
+    let mockConsoleLog: MockInstance;
+    let mockConsoleError: MockInstance;
 
     beforeAll(() => {
-      mockExit = jest.spyOn(process, 'exit').mockImplementation(exitCode => {
+      mockExit = vi.spyOn(process, 'exit').mockImplementation(exitCode => {
         throw new Error(`process.exit: ${exitCode}`);
       });
-      mockConsoleLog = jest.spyOn(console, 'log').mockImplementation();
-      mockConsoleError = jest.spyOn(console, 'error').mockImplementation();
+      mockConsoleLog = vi.spyOn(console, 'log').mockImplementation(() => undefined);
+      mockConsoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined);
     });
 
     beforeEach(() => {
-      jest.clearAllMocks();
+      vi.clearAllMocks();
     });
 
     afterAll(() => {
@@ -201,7 +201,7 @@ export = styles;
 
   describe('#writeFile', () => {
     beforeEach(async () => {
-      await rimraf(path.normalize('fixtures/testStyle.css.d.ts'));
+      await fs.rm(path.normalize('fixtures/testStyle.css.d.ts'), { force: true });
     });
 
     it('accepts a postprocessor sync function', async () => {
@@ -235,7 +235,7 @@ export = styles;
     });
 
     afterAll(async () => {
-      await rimraf(path.normalize('fixtures/none.css.d.ts'));
+      await fs.rm(path.normalize('fixtures/none.css.d.ts'), { force: true });
     });
   });
 });
