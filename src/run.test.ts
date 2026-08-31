@@ -1,13 +1,14 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import isThere from 'is-there';
+import { afterAll, beforeAll, beforeEach, describe, expect, it, type MockInstance, vi } from 'vitest';
 import { run } from './run';
 
 describe(run, () => {
-  let mockConsoleLog: jest.SpyInstance;
+  let mockConsoleLog: MockInstance;
 
   beforeAll(() => {
-    mockConsoleLog = jest.spyOn(console, 'log').mockImplementation();
+    mockConsoleLog = vi.spyOn(console, 'log').mockImplementation(() => undefined);
   });
 
   beforeEach(async () => {
