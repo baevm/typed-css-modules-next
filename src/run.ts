@@ -1,6 +1,6 @@
 import { styleText } from 'node:util';
 import chokidar from 'chokidar';
-import { glob } from 'glob';
+import { glob } from 'tinyglobby';
 import { DtsCreator } from './dts-creator';
 import { DtsContent } from './dts-content';
 
