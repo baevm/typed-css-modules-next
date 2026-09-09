@@ -1,6 +1,5 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import isThere from 'is-there';
 import { afterAll, beforeAll, beforeEach, describe, expect, it, type MockInstance, vi } from 'vitest';
 import { run } from './run';
 
@@ -21,6 +20,6 @@ describe(run, () => {
 
   it('generates type definition files', async () => {
     await run('example', { watch: false });
-    expect(isThere(path.normalize('example/style01.css.d.ts'))).toBeTruthy();
+    await expect(fs.access(path.normalize('example/style01.css.d.ts'))).resolves.toBeUndefined();
   });
 });
