@@ -2,7 +2,6 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 import isThere from 'is-there';
-import { mkdirp } from 'mkdirp';
 import camelcase from 'camelcase';
 import chalk from 'chalk';
 
@@ -121,7 +120,7 @@ export class DtsContent {
 
     const outPathDir = path.dirname(this.outputFilePath);
     if (!isThere(outPathDir)) {
-      await mkdirp(outPathDir);
+      await fs.mkdir(outPathDir, { recursive: true });
     }
 
     let isDirty = false;
