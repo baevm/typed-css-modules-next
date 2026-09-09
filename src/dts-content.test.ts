@@ -2,7 +2,6 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert';
 
-import isThere from 'is-there';
 import { afterAll, beforeAll, beforeEach, describe, expect, it, type MockInstance, vi } from 'vitest';
 
 import { DtsCreator } from './dts-creator';
@@ -219,7 +218,7 @@ export = styles;
     it('writes a .d.ts file', async () => {
       const content = await new DtsCreator().create(path.normalize('fixtures/testStyle.css'));
       await content.writeFile();
-      expect(isThere(path.normalize('fixtures/testStyle.css.d.ts'))).toBeTruthy();
+      await expect(fs.access(path.normalize('fixtures/testStyle.css.d.ts'))).resolves.toBeUndefined();
     });
   });
 
@@ -231,7 +230,7 @@ export = styles;
     it('delete a .d.ts file', async () => {
       const content = await new DtsCreator().create(path.normalize('fixtures/none.css'), undefined, false, true);
       await content.deleteFile();
-      expect(isThere(path.normalize('fixtures/none.css.d.ts'))).toBeFalsy();
+      await expect(fs.access(path.normalize('fixtures/none.css.d.ts'))).rejects.toMatchObject({ code: 'ENOENT' });
     });
 
     afterAll(async () => {

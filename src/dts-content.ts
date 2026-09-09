@@ -1,7 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import isThere from 'is-there';
 import camelcase from 'camelcase';
 import { styleText } from 'node:util';
 
@@ -98,13 +97,14 @@ export class DtsContent {
   }
 
   public async checkFile(postprocessor = (formatted: string) => formatted): Promise<boolean> {
-    if (!isThere(this.outputFilePath)) {
+    const fileContent = await readFileIfExists(this.outputFilePath);
+
+    if (fileContent === undefined) {
       console.error(styleText('red', `[ERROR] Type file needs to be generated for '${this.relativeInputFilePath}'`));
       return false;
     }
 
     const finalOutput = postprocessor(this.formatted);
-    const fileContent = (await fs.readFile(this.outputFilePath)).toString();
 
     if (fileContent !== finalOutput) {
       console.error(styleText('red', `[ERROR] Check type definitions for '${this.relativeOutputFilePath}'`));
@@ -119,31 +119,17 @@ export class DtsContent {
     const finalOutput = await postprocessor(this.formatted);
 
     const outPathDir = path.dirname(this.outputFilePath);
-    if (!isThere(outPathDir)) {
-      await fs.mkdir(outPathDir, { recursive: true });
-    }
+    await fs.mkdir(outPathDir, { recursive: true });
 
-    let isDirty = false;
+    const currentContent = await readFileIfExists(this.outputFilePath);
 
-    if (!isThere(this.outputFilePath)) {
-      isDirty = true;
-    } else {
-      const content = (await fs.readFile(this.outputFilePath)).toString();
-
-      if (content !== finalOutput) {
-        isDirty = true;
-      }
-    }
-
-    if (isDirty) {
+    if (currentContent !== finalOutput) {
       await fs.writeFile(this.outputFilePath, finalOutput, 'utf8');
     }
   }
 
-  public async deleteFile() {
-    if (isThere(this.outputFilePath)) {
-      await fs.unlink(this.outputFilePath);
-    }
+  public async deleteFile(): Promise<void> {
+    await fs.rm(this.outputFilePath, { force: true });
   }
 
   private createResultList(): string[] {
@@ -193,4 +179,16 @@ export class DtsContent {
 function removeExtension(filePath: string): string {
   const ext = path.extname(filePath);
   return filePath.replace(new RegExp(ext + '$'), '');
+}
+
+async function readFileIfExists(filePath: string): Promise<string | undefined> {
+  try {
+    return await fs.readFile(filePath, 'utf8');
+  } catch (error) {
+    if (error instanceof Error && 'code' in error && error.code === 'ENOENT') {
+      return undefined;
+    }
+
+    throw error;
+  }
 }

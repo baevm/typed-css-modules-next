@@ -52,7 +52,6 @@
     "chokidar": "^3.4.0",
     "glob": "^10.3.10",
     "icss-replace-symbols": "^1.1.0",
-    "is-there": "^4.4.2",
     "postcss": "^8.0.0",
     "postcss-modules-extract-imports": "^3.0.0",
     "postcss-modules-local-by-default": "^4.0.0",
