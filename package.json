@@ -50,13 +50,13 @@
   "dependencies": {
     "camelcase": "^6.0.0",
     "chokidar": "^3.4.0",
-    "glob": "^10.3.10",
     "icss-replace-symbols": "^1.1.0",
     "postcss": "^8.0.0",
     "postcss-modules-extract-imports": "^3.0.0",
     "postcss-modules-local-by-default": "^4.0.0",
     "postcss-modules-scope": "^3.0.0",
     "postcss-modules-values": "^4.0.0",
+    "tinyglobby": "^0.2.17",
     "yargs": "^17.7.2"
   },
   "devDependencies": {
