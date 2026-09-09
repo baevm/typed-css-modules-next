@@ -3,7 +3,7 @@ import path from 'node:path';
 
 import isThere from 'is-there';
 import camelcase from 'camelcase';
-import chalk from 'chalk';
+import { styleText } from 'node:util';
 
 export type CamelCaseOption = boolean | 'dashes' | undefined;
 
@@ -99,7 +99,7 @@ export class DtsContent {
 
   public async checkFile(postprocessor = (formatted: string) => formatted): Promise<boolean> {
     if (!isThere(this.outputFilePath)) {
-      console.error(chalk.red(`[ERROR] Type file needs to be generated for '${this.relativeInputFilePath}'`));
+      console.error(styleText('red', `[ERROR] Type file needs to be generated for '${this.relativeInputFilePath}'`));
       return false;
     }
 
@@ -107,7 +107,7 @@ export class DtsContent {
     const fileContent = (await fs.readFile(this.outputFilePath)).toString();
 
     if (fileContent !== finalOutput) {
-      console.error(chalk.red(`[ERROR] Check type definitions for '${this.relativeOutputFilePath}'`));
+      console.error(styleText('red', `[ERROR] Check type definitions for '${this.relativeOutputFilePath}'`));
       return false;
     }
     return true;

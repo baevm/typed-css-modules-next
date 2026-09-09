@@ -1,4 +1,4 @@
-import chalk from 'chalk';
+import { styleText } from 'node:util';
 import chokidar from 'chokidar';
 import { glob } from 'glob';
 import { DtsCreator } from './dts-creator';
@@ -34,7 +34,7 @@ export async function run(searchDir: string, options: RunOptions = {}): Promise<
       const content: DtsContent = await creator.create(f, undefined, false);
       return await content.checkFile();
     } catch (error) {
-      console.error(chalk.red(`[ERROR] An error occurred checking '${f}':\n${error}`));
+      console.error(styleText('red', `[ERROR] An error occurred checking '${f}':\n${error}`));
       return false;
     }
   };
@@ -45,10 +45,10 @@ export async function run(searchDir: string, options: RunOptions = {}): Promise<
       await content.writeFile();
 
       if (!options.silent) {
-        console.log('Wrote ' + chalk.green(content.outputFilePath));
+        console.log('Wrote ' + styleText('green', content.outputFilePath));
       }
     } catch (error) {
-      console.error(chalk.red('[Error] ' + error));
+      console.error(styleText('red', '[Error] ' + error));
     }
   };
 
@@ -58,9 +58,9 @@ export async function run(searchDir: string, options: RunOptions = {}): Promise<
 
       await content.deleteFile();
 
-      console.log('Delete ' + chalk.green(content.outputFilePath));
+      console.log('Delete ' + styleText('green', content.outputFilePath));
     } catch (error) {
-      console.error(chalk.red('[Error] ' + error));
+      console.error(styleText('red', '[Error] ' + error));
     }
   };
 
